@@ -1,0 +1,15 @@
+Model: resnet50
+BatchSize: 32
+Precision: fp32
+LiveEpochProgress:
+Epoch:1 Loss:0.000015 EpochTimeS:0.4200 ElapsedFromModelStartS:2.5668
+Epoch:2 Loss:0.000000 EpochTimeS:0.4123 ElapsedFromModelStartS:2.9849
+
+FinalSummary:
+MeasuredEpochs: 2
+TrainSamplesMeasured: 64
+TrainSamplesTotalWithWarmup: 96
+ValSamplesEvaluated: 10
+ValLoss: 170.29690551757812
+ValTop1Acc: 0.0
+ValTop5Acc: 10.0

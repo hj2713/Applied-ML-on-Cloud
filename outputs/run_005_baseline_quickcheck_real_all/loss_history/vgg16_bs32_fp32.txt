@@ -1,0 +1,15 @@
+Model: vgg16
+BatchSize: 32
+Precision: fp32
+LiveEpochProgress:
+Epoch:1 Loss:5.120727 EpochTimeS:1.4015 ElapsedFromModelStartS:4.9910
+Epoch:2 Loss:4.556467 EpochTimeS:1.2604 ElapsedFromModelStartS:6.2574
+
+FinalSummary:
+MeasuredEpochs: 2
+TrainSamplesMeasured: 64
+TrainSamplesTotalWithWarmup: 96
+ValSamplesEvaluated: 10
+ValLoss: 6.419902801513672
+ValTop1Acc: 0.0
+ValTop5Acc: 0.0

@@ -1,0 +1,9 @@
+Model: vgg16
+BatchSize: 32
+Precision: fp32
+TrainSamplesMeasured: 64
+TrainSamplesTotalWithWarmup: 96
+ValSamplesEvaluated: 10
+
+Epoch:0 Loss: 5.120726585388184
+Epoch:1 Loss: 4.556467056274414

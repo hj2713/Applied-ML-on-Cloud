@@ -1,0 +1,7 @@
+{
+  "model": "vgg16",
+  "batch_size": 128,
+  "precision": "fp32",
+  "sample_count": 0,
+  "samples": []
+}

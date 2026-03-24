@@ -1,0 +1,85 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg       CPU Mem  Self CPU Mem    # of Calls  Total KFLOPs  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                            aten::_slow_conv2d_backward        48.40%        3.377s        49.30%        3.439s      88.180ms       1.16 GB      -9.13 GB            39            --  
+                             aten::_slow_conv2d_forward        27.01%        1.884s        29.66%        2.069s      53.062ms       1.51 GB      -9.13 GB            39            --  
+                                             aten::add_         5.14%     358.738ms         5.14%     358.738ms       2.242ms           0 B           0 B           160            --  
+                                            aten::copy_         3.19%     222.273ms         3.19%     222.273ms       1.482ms           0 B           0 B           150            --  
+                                             aten::mul_         2.90%     202.556ms         2.91%     202.815ms       3.169ms           0 B        -256 B            64            --  
+                                            aten::addmm         2.70%     188.202ms         2.70%     188.342ms      20.927ms     983.44 KB     983.44 KB             9   7221411.840  
+                               aten::threshold_backward         1.73%     121.024ms         1.73%     121.024ms       2.689ms       1.51 GB       1.51 GB            45            --  
+enumerate(DataLoader)#_MultiProcessingDataLoaderIter...         1.72%     120.007ms         1.72%     120.027ms      24.005ms      17.23 MB      17.23 MB             5            --  
+                                            aten::fill_         1.72%     119.675ms         1.72%     119.675ms     848.760us           0 B           0 B           141            --  
+                          aten::max_pool2d_with_indices         1.61%     112.478ms         1.61%     112.478ms       7.499ms     525.41 MB     525.41 MB            15            --  
+                                               aten::mm         1.47%     102.417ms         1.47%     102.419ms       5.690ms       1.35 GB       1.35 GB            18  14442823.680  
+                 aten::max_pool2d_with_indices_backward         1.35%      94.252ms         2.52%     175.718ms      11.715ms     700.55 MB     700.55 MB            15            --  
+                                       aten::clamp_min_         0.42%      29.291ms         0.42%      29.291ms     650.917us           0 B           0 B            45            --  
+                                              aten::sum         0.33%      23.334ms         0.34%      23.457ms     488.693us     147.84 KB     147.84 KB            48            --  
+                                Optimizer.step#SGD.step         0.05%       3.506ms         8.65%     603.506ms     201.169ms     515.29 MB           0 B             3            --  
+     autograd::engine::evaluate_function: ReluBackward0         0.03%       2.220ms         1.77%     123.493ms       2.744ms      -1.51 GB      -3.03 GB            45            --  
+autograd::engine::evaluate_function: ConvolutionBack...         0.03%       2.098ms        49.34%        3.442s      88.252ms    -532.15 MB      -1.68 GB            39            --  
+                      Optimizer.zero_grad#SGD.zero_grad         0.02%       1.552ms         0.02%       1.552ms     517.249us      -1.01 GB      -1.01 GB             3            --  
+                                          aten::resize_         0.02%       1.097ms         0.02%       1.097ms       8.309us       2.68 GB       2.68 GB           132            --  
+                             aten::_adaptive_avg_pool2d         0.01%     995.667us         0.01%       1.007ms     335.819us       2.87 MB           0 B             3            --  
+                                            aten::empty         0.01%     946.204us         0.01%     946.204us       3.740us      18.27 GB      18.27 GB           253            --  
+                                            aten::relu_         0.01%     841.328us         0.43%      30.133ms     669.614us           0 B           0 B            45            --  
+autograd::engine::evaluate_function: MaxPool2DWithIn...         0.01%     738.250us         2.53%     176.559ms      11.771ms     175.14 MB    -525.41 MB            15            --  
+                                       aten::bernoulli_         0.01%     586.625us         0.01%     586.625us      97.771us           0 B           0 B             6            --  
+                    aten::_adaptive_avg_pool2d_backward         0.01%     553.332us         0.01%     606.416us     202.139us       2.87 MB           0 B             3            --  
+                                      aten::convolution         0.01%     445.167us        29.68%        2.070s      53.083ms       1.51 GB           0 B            39            --  
+                                          aten::dropout         0.01%     435.957us         0.02%       1.423ms     237.236us       1.88 MB           0 B             6            --  
+                             aten::convolution_backward         0.01%     406.457us        49.30%        3.439s      88.191ms       1.16 GB           0 B            39            --  
+                                     aten::_convolution         0.00%     276.624us        29.67%        2.070s      53.072ms       1.51 GB           0 B            39            --  
+                                   ConvolutionBackward0         0.00%     270.337us        49.31%        3.440s      88.198ms       1.16 GB           0 B            39            --  
+                             AdaptiveAvgPool2DBackward0         0.00%     269.874us         0.01%     876.290us     292.097us       2.87 MB           0 B             3            --  
+                                              aten::mul         0.00%     258.875us         0.00%     258.875us      21.573us       1.88 MB       1.88 MB            12       491.520  
+                                          ReluBackward0         0.00%     248.882us         1.74%     121.273ms       2.695ms       1.51 GB           0 B            45            --  
+                                             aten::view         0.00%     232.668us         0.00%     232.668us       1.385us           0 B           0 B           168            --  
+                                    aten::empty_strided         0.00%     225.370us         0.00%     225.370us       2.030us     516.23 MB     516.23 MB           111            --  
+                        torch::autograd::AccumulateGrad         0.00%     189.915us         0.00%     343.545us       3.579us           0 B           0 B            96            --  
+    autograd::engine::evaluate_function: AddmmBackward0         0.00%     151.542us         1.48%     103.054ms      11.450ms       1.34 GB      -4.77 MB             9            --  
+                                             aten::div_         0.00%     151.331us         0.00%     184.207us      30.701us           0 B         -24 B             6            --  
+                                            aten::zero_         0.00%     135.468us         1.72%     119.733ms       1.247ms           0 B           0 B            96            --  
+autograd::engine::evaluate_function: torch::autograd...         0.00%     135.327us         0.01%     478.872us       4.988us           0 B           0 B            96            --  
+                                         aten::_to_copy         0.00%     125.288us         0.00%     246.957us       3.528us         280 B           0 B            70            --  
+                                                aten::t         0.00%     120.414us         0.00%     210.749us       4.683us           0 B           0 B            45            --  
+                                           aten::conv2d         0.00%     116.752us        29.68%        2.070s      53.086ms       1.51 GB           0 B            39  920797839.360  
+                                      aten::thnn_conv2d         0.00%     115.419us        29.66%        2.070s      53.065ms       1.51 GB           0 B            39            --  
+                          MaxPool2DWithIndicesBackward0         0.00%     102.789us         2.52%     175.821ms      11.721ms     700.55 MB           0 B            15            --  
+                                                 detach         0.00%     101.833us         0.00%     101.833us       0.771us           0 B           0 B           132            --  
+                                           aten::detach         0.00%     101.623us         0.00%     203.456us       1.541us           0 B           0 B           132            --  
+                                         AddmmBackward0         0.00%      94.374us         1.47%     102.592ms      11.399ms       1.35 GB           0 B             9            --  
+                                     aten::_log_softmax         0.00%      92.584us         0.00%      92.584us      30.861us      23.44 KB      23.44 KB             3            --  
+                                       aten::max_pool2d         0.00%      86.379us         1.61%     112.564ms       7.504ms     525.41 MB           0 B            15            --  
+                                       aten::as_strided         0.00%      83.296us         0.00%      83.296us       0.896us           0 B           0 B            93            --  
+                                            aten::clone         0.00%      82.008us         0.55%      38.408ms       1.200ms     515.29 MB           0 B            32            --  
+                                aten::nll_loss_backward         0.00%      77.542us         0.00%      79.292us      26.431us      23.44 KB      23.44 KB             3            --  
+                                           aten::linear         0.00%      69.709us         2.70%     188.510ms      20.946ms     983.44 KB           0 B             9            --  
+                                         aten::randperm         0.00%      69.125us         0.00%     131.502us      10.958us         480 B         -48 B            12            --  
+                                        aten::transpose         0.00%      64.745us         0.00%      90.335us       2.007us           0 B           0 B            45            --  
+                       aten::_log_softmax_backward_data         0.00%      60.666us         0.00%      60.666us      20.222us      23.44 KB      23.44 KB             3            --  
+                                       aten::resize_as_         0.00%      59.006us         0.00%     231.420us       6.428us    1022.11 MB           0 B            36            --  
+                                 aten::nll_loss_forward         0.00%      52.667us         0.00%      52.667us      17.556us          24 B          24 B             3            --  
+                                               aten::to         0.00%      52.631us         0.00%     299.588us       3.609us         280 B           0 B            83            --  
+                                          aten::reshape         0.00%      43.794us         0.00%      90.170us       2.147us           0 B           0 B            42            --  
+                                    LogSoftmaxBackward0         0.00%      43.084us         0.00%     103.750us      34.583us      23.44 KB           0 B             3            --  
+                              aten::adaptive_avg_pool2d         0.00%      41.667us         0.02%       1.049ms     349.708us       2.87 MB           0 B             3            --  
+                               aten::cross_entropy_loss         0.00%      37.043us         0.00%     231.250us      77.083us      23.46 KB           0 B             3            --  
+                                       aten::empty_like         0.00%      35.042us         0.00%      71.335us       7.926us     960.01 KB           0 B             9            --  
+                                        aten::ones_like         0.00%      28.915us         0.00%      40.000us      13.333us          12 B           0 B             3            --  
+                                      aten::log_softmax         0.00%      26.792us         0.00%     120.833us      40.278us      23.44 KB           0 B             3            --  
+                                       NllLossBackward0         0.00%      26.542us         0.00%     105.834us      35.278us      23.44 KB           0 B             3            --  
+                                          aten::random_         0.00%      25.500us         0.00%      25.500us       6.375us           0 B           0 B             4            --  
+      autograd::engine::evaluate_function: MulBackward0         0.00%      19.042us         0.00%     137.792us      22.965us    -960.00 KB      -1.88 MB             6            --  
+                                aten::_nnpack_available         0.00%      17.538us         0.00%      17.538us       0.225us           0 B           0 B            78            --  
+                                           MulBackward0         0.00%      14.543us         0.00%     118.750us      19.792us     960.00 KB           0 B             6            --  
+autograd::engine::evaluate_function: AdaptiveAvgPool...         0.00%      13.918us         0.01%     890.208us     296.736us      -2.87 MB      -5.74 MB             3            --  
+autograd::engine::evaluate_function: NllLossBackward...         0.00%      11.917us         0.00%     117.751us      39.250us      23.43 KB         -12 B             3            --  
+                                           aten::expand         0.00%      11.836us         0.00%      22.501us       2.500us           0 B           0 B             9            --  
+                                             aten::set_         0.00%      11.291us         0.00%      11.291us       1.882us           0 B           0 B             6            --  
+                                         aten::nll_loss         0.00%      11.083us         0.00%      63.750us      21.250us          24 B           0 B             3            --  
+                                             aten::item         0.00%      11.079us         0.00%      17.666us       2.208us           0 B           0 B             8            --  
+                                          aten::flatten         0.00%      10.959us         0.00%      36.085us      12.028us           0 B           0 B             3            --  
+                                      aten::nll_loss_nd         0.00%       9.624us         0.00%      73.374us      24.458us          24 B           0 B             3            --  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 6.976s

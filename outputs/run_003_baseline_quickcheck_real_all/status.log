@@ -1,0 +1,64 @@
+2026-03-24T00:20:37.438032+00:00 [INFO] Starting benchmark sweep
+2026-03-24T00:20:37.438089+00:00 [INFO] Quick check mode: False
+2026-03-24T00:20:37.438125+00:00 [INFO] Quick check real mode: False
+2026-03-24T00:20:37.438159+00:00 [INFO] Quick check real all mode: True
+2026-03-24T00:20:37.438195+00:00 [INFO] Device: cpu | GPU: cpu-only
+2026-03-24T00:20:37.438227+00:00 [INFO] Train dataset mode: imagefolder
+2026-03-24T00:20:37.438258+00:00 [INFO] Validation dataset mode: real
+2026-03-24T00:20:37.438287+00:00 [INFO] Real data dir: imagenet_subset/train
+2026-03-24T00:20:37.438316+00:00 [INFO] Validation data dir: imagenet_subset/val
+2026-03-24T00:20:37.438343+00:00 [INFO] Quick check real all uses all model/config combinations with tiny real subsets (train=10, val=10) and 1 warmup + 2 measured iterations
+2026-03-24T00:20:37.438369+00:00 [INFO] Planned runs: 6
+2026-03-24T00:20:37.438402+00:00 [INFO] Output CSV: outputs/run_005_baseline_quickcheck_real_all/metrics.csv
+2026-03-24T00:20:37.438429+00:00 [INFO] Run plan JSON: outputs/run_005_baseline_quickcheck_real_all/run_plan.json
+2026-03-24T00:20:37.438459+00:00 [INFO] Profiler dir: outputs/run_005_baseline_quickcheck_real_all/profiler
+2026-03-24T00:20:37.438489+00:00 [INFO] GPU samples dir: outputs/run_005_baseline_quickcheck_real_all/gpu_samples
+2026-03-24T00:20:37.438519+00:00 [INFO] Loss history dir: outputs/run_005_baseline_quickcheck_real_all/loss_history
+2026-03-24T00:20:37.438547+00:00 [INFO] Status log: outputs/run_005_baseline_quickcheck_real_all/status.log
+2026-03-24T00:20:37.438575+00:00 [INFO] Progress JSONL: outputs/run_005_baseline_quickcheck_real_all/progress.jsonl
+2026-03-24T00:20:37.438602+00:00 [INFO] Run directory: outputs/run_005_baseline_quickcheck_real_all
+2026-03-24T00:20:37.438631+00:00 
+[SWEEP] 1/6
+2026-03-24T00:20:37.686901+00:00 [WARN] train_classes=200 did not match val_classes=None; validation disabled for this run
+2026-03-24T00:20:37.890544+00:00 
+[RUN START] model=resnet50 batch_size=32 precision=fp32 train_dataset=imagefolder val_dataset=real device=cpu
+2026-03-24T00:20:41.141452+00:00 [PROGRESS] step=3/3 measured=2/2 loss=0.0000 iter_s=0.4249 avg_s=0.4314 eta=00:00
+2026-03-24T00:20:41.741585+00:00 [RUN END] model=resnet50 batch_size=32 precision=fp32 avg_iter_s=0.4314 images_per_s=74.19 peak_gpu_mem_mb=0.0 achieved_tflops=0.284 val_top1=nan% val_top5=nan%
+2026-03-24T00:20:46.756675+00:00 
+[SWEEP] 2/6
+2026-03-24T00:20:47.067180+00:00 [WARN] train_classes=200 did not match val_classes=None; validation disabled for this run
+2026-03-24T00:20:47.258761+00:00 
+[RUN START] model=resnet50 batch_size=128 precision=fp32 train_dataset=imagefolder val_dataset=real device=cpu
+2026-03-24T00:20:50.393499+00:00 [PROGRESS] step=3/3 measured=2/2 loss=0.0000 iter_s=0.4213 avg_s=0.4239 eta=00:00
+2026-03-24T00:20:50.939281+00:00 [RUN END] model=resnet50 batch_size=128 precision=fp32 avg_iter_s=0.4239 images_per_s=301.95 peak_gpu_mem_mb=0.0 achieved_tflops=0.289 val_top1=nan% val_top5=nan%
+2026-03-24T00:20:55.958723+00:00 
+[SWEEP] 3/6
+2026-03-24T00:20:56.248150+00:00 [WARN] train_classes=200 did not match val_classes=None; validation disabled for this run
+2026-03-24T00:20:56.423219+00:00 
+[RUN START] model=vit_b_16 batch_size=32 precision=fp32 train_dataset=imagefolder val_dataset=real device=cpu
+2026-03-24T00:21:01.354337+00:00 [PROGRESS] step=3/3 measured=2/2 loss=0.0015 iter_s=1.0301 avg_s=1.0383 eta=00:00
+2026-03-24T00:21:02.151906+00:00 [RUN END] model=vit_b_16 batch_size=32 precision=fp32 avg_iter_s=1.0383 images_per_s=30.82 peak_gpu_mem_mb=0.0 achieved_tflops=1.454 val_top1=nan% val_top5=nan%
+2026-03-24T00:21:07.182519+00:00 
+[SWEEP] 4/6
+2026-03-24T00:21:07.494913+00:00 [WARN] train_classes=200 did not match val_classes=None; validation disabled for this run
+2026-03-24T00:21:07.678496+00:00 
+[RUN START] model=vit_b_16 batch_size=128 precision=fp32 train_dataset=imagefolder val_dataset=real device=cpu
+2026-03-24T00:21:12.717738+00:00 [PROGRESS] step=3/3 measured=2/2 loss=0.0026 iter_s=1.0729 avg_s=1.1489 eta=00:00
+2026-03-24T00:21:13.607376+00:00 [RUN END] model=vit_b_16 batch_size=128 precision=fp32 avg_iter_s=1.1489 images_per_s=111.41 peak_gpu_mem_mb=0.0 achieved_tflops=1.314 val_top1=nan% val_top5=nan%
+2026-03-24T00:21:18.632946+00:00 
+[SWEEP] 5/6
+2026-03-24T00:21:18.932872+00:00 [WARN] train_classes=200 did not match val_classes=None; validation disabled for this run
+2026-03-24T00:21:20.007517+00:00 
+[RUN START] model=vgg16 batch_size=32 precision=fp32 train_dataset=imagefolder val_dataset=real device=cpu
+2026-03-24T00:21:28.616547+00:00 [PROGRESS] step=3/3 measured=2/2 loss=1.5261 iter_s=2.1663 avg_s=2.1401 eta=00:00
+2026-03-24T00:21:28.816304+00:00 [RUN END] model=vgg16 batch_size=32 precision=fp32 avg_iter_s=2.1401 images_per_s=14.95 peak_gpu_mem_mb=0.0 achieved_tflops=0.220 val_top1=nan% val_top5=nan%
+2026-03-24T00:21:33.846073+00:00 
+[SWEEP] 6/6
+2026-03-24T00:21:34.239827+00:00 [WARN] train_classes=200 did not match val_classes=None; validation disabled for this run
+2026-03-24T00:21:35.318023+00:00 
+[RUN START] model=vgg16 batch_size=128 precision=fp32 train_dataset=imagefolder val_dataset=real device=cpu
+2026-03-24T00:21:43.109179+00:00 [PROGRESS] step=3/3 measured=2/2 loss=4.1055 iter_s=1.7273 avg_s=1.7629 eta=00:00
+2026-03-24T00:21:43.231899+00:00 [RUN END] model=vgg16 batch_size=128 precision=fp32 avg_iter_s=1.7629 images_per_s=72.61 peak_gpu_mem_mb=0.0 achieved_tflops=0.267 val_top1=nan% val_top5=nan%
+2026-03-24T00:21:48.249704+00:00 
+[SUMMARY] Sweep completed successfully with no failures.
+2026-03-24T00:21:48.249974+00:00 [DONE] Metrics collection complete.

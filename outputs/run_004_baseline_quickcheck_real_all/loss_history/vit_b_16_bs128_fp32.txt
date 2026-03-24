@@ -1,0 +1,9 @@
+Model: vit_b_16
+BatchSize: 128
+Precision: fp32
+TrainSamplesMeasured: 256
+TrainSamplesTotalWithWarmup: 384
+ValSamplesEvaluated: 10
+
+Epoch:0 Loss: 0.05367233231663704
+Epoch:1 Loss: 0.0013648734893649817

@@ -1,0 +1,42 @@
+{
+  "generated_at_utc": "2026-03-24T00:20:37.437695+00:00",
+  "run_name": "baseline_quickcheck_real_all",
+  "train_dataset": "imagefolder",
+  "train_data_dir": "imagenet_subset/train",
+  "val_dataset": "real",
+  "val_data_dir": "imagenet_subset/val",
+  "iterations": 2,
+  "warmup_iterations": 1,
+  "configs": [
+    {
+      "model_name": "resnet50",
+      "batch_size": 32,
+      "precision": "fp32"
+    },
+    {
+      "model_name": "resnet50",
+      "batch_size": 128,
+      "precision": "fp32"
+    },
+    {
+      "model_name": "vit_b_16",
+      "batch_size": 32,
+      "precision": "fp32"
+    },
+    {
+      "model_name": "vit_b_16",
+      "batch_size": 128,
+      "precision": "fp32"
+    },
+    {
+      "model_name": "vgg16",
+      "batch_size": 32,
+      "precision": "fp32"
+    },
+    {
+      "model_name": "vgg16",
+      "batch_size": 128,
+      "precision": "fp32"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+Model: resnet50
+BatchSize: 128
+Precision: fp32
+TrainSamplesMeasured: 256
+TrainSamplesTotalWithWarmup: 384
+ValSamplesEvaluated: 10
+
+Epoch:0 Loss: 7.629388960594952e-07
+Epoch:1 Loss: 0.0
