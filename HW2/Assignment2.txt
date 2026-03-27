@@ -1,0 +1,48 @@
+Situation: You work for a startup that lacks GCP premium support. Your team urgently needs a GPU for an AI workload but must determine availability dynamically.
+ 
+
+Mission:
+Write a script that:
+
+Iterates through all Google Cloud regions and zones.
+
+Attempts to allocate at least two different GPU types.
+
+Tries to create a VM in a zone where a GPU is available.
+
+ 
+
+Additional Requirements:
+Your code must optimize for speed (i.e., avoid unnecessary API calls).
+
+If VM creation fails, your script should categorize the reason (e.g., “No GPUs available,” “Quota exceeded,” “Pricing too high”).
+
+Your script should use at least two different methods for checking GPU availability (e.g., listing quotas vs. attempting a dry-run VM creation).
+
+Your solution must compare the efficiency of these approaches.
+
+ 
+
+Submit a table with at least 10 tested zones, showing:
+GPU available (Yes/No)
+
+GPU allocated successfully (Yes/No)
+
+Reason for failure (if applicable)
+
+Time taken for each check
+
+ 
+
+Submission:
+
+1.Code that performs the above tasks.
+
+2.A 200-word analysis explaining:
+
+How your code minimizes API calls while still checking availability accurately.
+A comparison of the different methods you used to determine availability.
+How your method could be improved for efficiency.
+3.A table summarizing the test results.
+
+Code can be shell scripts with gcloud commands, python, terraform, or ansible.

@@ -4,6 +4,7 @@ __pycache__/
 
 # Virtual env
 venv/
+Project1/venv/
 
 # Mac
 .DS_Store

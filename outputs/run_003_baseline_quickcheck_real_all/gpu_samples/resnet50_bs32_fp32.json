@@ -1,7 +1,0 @@
-{
-  "model": "resnet50",
-  "batch_size": 32,
-  "precision": "fp32",
-  "sample_count": 0,
-  "samples": []
-}
