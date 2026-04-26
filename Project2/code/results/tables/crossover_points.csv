@@ -1,0 +1,4 @@
+gpu_type,task,speculative_system,crossover_concurrency
+L4,code,eagle3,1
+L4,summarization,eagle3,1
+L4,chat,eagle3,1

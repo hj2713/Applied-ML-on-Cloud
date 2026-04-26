@@ -1,0 +1,13 @@
+vllm>=0.4.3
+torch>=2.2.0
+transformers>=4.40.0
+huggingface_hub>=0.22.0
+datasets>=2.18.0
+aiohttp>=3.9.0
+rouge_score>=0.1.2
+numpy>=1.26.0
+pandas>=2.2.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+streamlit>=1.33.0
+tqdm>=4.66.0
