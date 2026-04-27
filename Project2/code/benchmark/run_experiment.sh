@@ -131,6 +131,10 @@ run_sweep "${SYSTEMS[0]}" $BASELINE_PORT
 echo ""
 echo "  Stopping baseline server..."
 kill "$(cat logs/baseline.pid)" 2>/dev/null || true
+# GPU: ensure all vLLM processes are dead to free VRAM before starting eagle3
+if [ "$GPU_TYPE" != "mac" ]; then
+    pkill -9 -f vllm 2>/dev/null || true
+fi
 sleep 5
 
 # ── Phase 2: EAGLE-3 / MLX speculative ─────────────────────
@@ -151,6 +155,9 @@ run_sweep "${SYSTEMS[1]}" $EAGLE3_PORT
 echo ""
 echo "  Stopping ${SYSTEMS[1]} server..."
 kill "$(cat logs/${SYSTEMS[1]}.pid)" 2>/dev/null || true
+if [ "$GPU_TYPE" != "mac" ]; then
+    pkill -9 -f vllm 2>/dev/null || true
+fi
 
 # ── Done ────────────────────────────────────────────────────
 echo ""
@@ -159,6 +166,6 @@ echo "  ALL EXPERIMENTS COMPLETE"
 echo "  GPU Type : $GPU_TYPE"
 echo "  Results  : results/raw/ ($(ls results/raw/*.jsonl 2>/dev/null | wc -l | tr -d ' ') files)"
 echo ""
-echo "  To analyze results:"
-echo "    python3 analysis/analyze.py"
+echo "  To generate plots and tables:"
+echo "    python3 benchmark/plot_results.py"
 echo "========================================"

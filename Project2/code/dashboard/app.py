@@ -71,11 +71,13 @@ if mode == "Live Demo":
             "max_tokens": max_tokens,
             "temperature": 0,
             "stream": True,
+            "stream_options": {"include_usage": True},
         }
         t_start = time.perf_counter()
         t_first = None
         text = ""
-        tokens = 0
+        chunk_count = 0
+        server_tokens = None
         try:
             async with session.post(
                 f"{url}/v1/chat/completions",
@@ -91,12 +93,20 @@ if mode == "Live Demo":
                         break
                     try:
                         chunk = json.loads(data)
-                        content = chunk["choices"][0]["delta"].get("content", "")
+                        # Check for usage field in the final chunk
+                        usage = chunk.get("usage")
+                        if usage and "completion_tokens" in usage:
+                            server_tokens = usage["completion_tokens"]
+                        # Guard against empty choices array in the usage-only chunk
+                        choices = chunk.get("choices", [])
+                        if not choices:
+                            continue
+                        content = choices[0]["delta"].get("content", "")
                         if content:
                             if t_first is None:
                                 t_first = time.perf_counter()
                             text += content
-                            tokens += 1
+                            chunk_count += 1
                     except Exception:
                         continue
         except Exception as e:
@@ -104,6 +114,7 @@ if mode == "Live Demo":
 
         t_end = time.perf_counter()
         total = t_end - t_start
+        tokens = server_tokens if server_tokens is not None else chunk_count
         ttft = (t_first - t_start) * 1000 if t_first else None
         tpot = ((t_end - t_first) / (tokens - 1) * 1000) if t_first and tokens > 1 else None
         cost = GPU_HOURLY_RATES.get(gpu_type, 0) / 3600 * total

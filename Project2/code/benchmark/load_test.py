@@ -71,6 +71,13 @@ async def send_request(
 
     Streaming is required to measure TTFT accurately — we can't get TTFT
     from a non-streaming response because it only returns after full generation.
+
+    Token counting strategy:
+      We request `stream_options: {include_usage: true}` so that the server
+      sends a final chunk with the authoritative `usage.completion_tokens`.
+      This is critical for speculative decoding where a single SSE chunk
+      may contain multiple accepted tokens (not 1:1 with chunks).
+      Falls back to chunk counting if the server doesn't support usage reporting.
     """
     model_name = SYSTEM_MODEL_NAMES[system]
     payload = {
@@ -79,12 +86,16 @@ async def send_request(
         "max_tokens": MAX_OUTPUT_TOKENS,
         "temperature": 0,   # greedy — deterministic output for quality comparison
         "stream": True,
+        # Ask server to include token usage stats in the final streaming chunk.
+        # Supported by vLLM >=0.4.x and OpenAI API. MLX may ignore this gracefully.
+        "stream_options": {"include_usage": True},
     }
 
     t_start = time.perf_counter()
     t_first_token = None
     output_text = ""
-    output_tokens = 0
+    chunk_count = 0           # number of SSE chunks with content (fallback counter)
+    server_output_tokens = None  # authoritative count from server's usage field
 
     try:
         async with session.post(
@@ -109,14 +120,25 @@ async def send_request(
                 except json.JSONDecodeError:
                     continue
 
-                delta = chunk.get("choices", [{}])[0].get("delta", {})
+                # Check for usage field (sent in the final chunk when stream_options is set).
+                # This chunk typically has an empty "choices" array, so we check usage first.
+                usage = chunk.get("usage")
+                if usage and "completion_tokens" in usage:
+                    server_output_tokens = usage["completion_tokens"]
+
+                # Extract content from the delta. The usage-only chunk has choices=[]
+                # so we must guard against an empty array.
+                choices = chunk.get("choices", [])
+                if not choices:
+                    continue
+                delta = choices[0].get("delta", {})
                 content = delta.get("content", "")
 
                 if content:
                     if t_first_token is None:
                         t_first_token = time.perf_counter()
                     output_text += content
-                    output_tokens += 1  # approximate: 1 chunk ≈ 1 token
+                    chunk_count += 1
 
         t_end = time.perf_counter()
 
@@ -137,6 +159,11 @@ async def send_request(
             "tokens_per_sec": None,
             "gpu_cost_usd": _compute_cost(gpu_type, t_end - t_start),
         }
+
+    # Use the authoritative server token count if available, otherwise fall back to chunk count.
+    # The chunk count is only accurate for baseline (greedy) decoding where 1 chunk = 1 token.
+    # For speculative decoding, chunks can contain multiple accepted tokens.
+    output_tokens = server_output_tokens if server_output_tokens is not None else chunk_count
 
     total_latency = t_end - t_start
     ttft = (t_first_token - t_start) if t_first_token else None
