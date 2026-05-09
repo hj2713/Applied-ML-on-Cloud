@@ -1,0 +1,17 @@
+1) finding region swhere gpu is available - took 2 hours
+2) (coms-amlc) has an Organization Policy constraint (constraints/compute.vmExternalIpAccess) that prevents VM instances from having external IP addresses.
+3) GKE clusters require this plugin for kubectl to authenticate. Run this command:
+gcloud components install gke-gcloud-auth-plugin
+4) NAT is already in place, your private GKE nodes will automatically have outbound internet access
+created this NAT :
+gcloud compute routers create hw3-router-east \
+    --region=us-east1 \
+    --network=default
+gcloud compute routers nats create hw3-nat-east \
+    --router=hw3-router-east \
+    --region=us-east1 \
+    --auto-allocate-nat-external-ips \
+    --nat-all-subnet-ip-ranges
+
+
+5) connecting my laptop network ip to connect or allowed to connect to gcp cluster

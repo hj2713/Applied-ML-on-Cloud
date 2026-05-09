@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Inference Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+            color: var(--text-main);
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-weight: 800;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            display: grid;
+            gap: 2rem;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Upload Section */
+        .upload-area {
+            border: 2px dashed var(--glass-border);
+            border-radius: 0.75rem;
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .upload-area:hover, .upload-area.dragover {
+            border-color: var(--primary);
+            background: rgba(56, 189, 248, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        /* URL Input */
+        .url-input-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary);
+        }
+
+        button {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.1s ease;
+        }
+
+        button:hover {
+            background: var(--primary-hover);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Results / History */
+        h2 {
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin-top: 0;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 0.5rem;
+        }
+
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .history-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .history-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            background: white; /* In case of transparent MNIST images */
+        }
+
+        .history-card .result {
+            padding: 0.75rem;
+            text-align: center;
+            font-weight: 800;
+            font-size: 1.25rem;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--primary);
+        }
+
+        /* Loading Spinner */
+        .loader {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Neural Dashboard</h1>
+    <p style="color: var(--text-muted); margin-bottom: 2rem;">MNIST Inference Engine hosted on Kubernetes</p>
+
+    <div class="container">
+        <!-- Input Section -->
+        <div class="glass-panel">
+            <div style="margin-bottom: 1.5rem;">
+                <label for="api-key-input" style="font-weight: 600; font-size: 0.9rem; color: var(--text-muted);">API Key for Authentication:</label>
+                <input type="password" id="api-key-input" placeholder="Enter Kubernetes API key..." style="width: 100%; margin-top: 0.5rem; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: var(--text-main); padding: 0.75rem 1rem; border-radius: 0.5rem; box-sizing: border-box;">
+            </div>
+
+            <div class="upload-area" id="drop-zone" onclick="document.getElementById('file-input').click()">
+                <div class="upload-icon">✨</div>
+                <div id="upload-text">Drag & drop an image here, or click to browse</div>
+                <div class="loader" id="loader"></div>
+            </div>
+            <input type="file" id="file-input" accept="image/*" onchange="handleFileSelect(event)">
+
+            <div style="text-align: center; margin: 1rem 0; color: var(--text-muted);">— OR —</div>
+
+            <div class="url-input-group">
+                <input type="text" id="url-input" placeholder="Paste an image URL here...">
+                <button onclick="handleUrlSubmit()">Predict URL</button>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div class="glass-panel">
+            <h2>Prediction History</h2>
+            <div class="history-grid" id="history-grid">
+                <!-- Cards will be injected here via JS -->
+            </div>
+            <button onclick="clearHistory()" style="margin-top: 1rem; background: rgba(255,255,255,0.1); width: 100%;">Clear History</button>
+        </div>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const uploadText = document.getElementById('upload-text');
+        const loader = document.getElementById('loader');
+        const historyGrid = document.getElementById('history-grid');
+
+        // Initialize history from LocalStorage
+        let predictionHistory = JSON.parse(localStorage.getItem('mnist_history')) || [];
+        renderHistory();
+
+        // Drag and drop event listeners
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            if (e.dataTransfer.files.length) {
+                processFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        function handleFileSelect(event) {
+            if (event.target.files.length) {
+                processFile(event.target.files[0]);
+            }
+        }
+
+        async function handleUrlSubmit() {
+            const url = document.getElementById('url-input').value;
+            if (!url) return;
+            
+            setLoading(true);
+            try {
+                // Fetch the image from URL and convert to blob
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const file = new File([blob], "url_image.png", { type: blob.type });
+                await processFile(file);
+            } catch (err) {
+                alert("Failed to load image from URL. It might be blocked by CORS.");
+                setLoading(false);
+            }
+        }
+
+        async function processFile(file) {
+            setLoading(true);
+            
+            // Generate base64 for history display
+            const base64Image = await toBase64(file);
+
+            // Prepare form data for API
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const apiKey = document.getElementById('api-key-input').value;
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'X-API-Key': apiKey
+                    },
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    addToHistory(base64Image, data.prediction);
+                } else {
+                    alert("Error: " + data.error);
+                }
+            } catch (err) {
+                alert("Failed to connect to the inference server.");
+            }
+            
+            setLoading(false);
+        }
+
+        function addToHistory(imageSrc, prediction) {
+            // Add to front of array
+            predictionHistory.unshift({ image: imageSrc, pred: prediction });
+            // Keep only last 20
+            if (predictionHistory.length > 20) predictionHistory.pop();
+            
+            localStorage.setItem('mnist_history', JSON.stringify(predictionHistory));
+            renderHistory();
+        }
+
+        function renderHistory() {
+            historyGrid.innerHTML = '';
+            predictionHistory.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'history-card';
+                card.innerHTML = `
+                    <img src="${item.image}" alt="Predicted Image">
+                    <div class="result">Digit: ${item.pred}</div>
+                `;
+                historyGrid.appendChild(card);
+            });
+        }
+
+        function clearHistory() {
+            predictionHistory = [];
+            localStorage.removeItem('mnist_history');
+            renderHistory();
+        }
+
+        function setLoading(isLoading) {
+            if (isLoading) {
+                uploadText.style.display = 'none';
+                loader.style.display = 'block';
+            } else {
+                uploadText.style.display = 'block';
+                loader.style.display = 'none';
+                document.getElementById('file-input').value = '';
+                document.getElementById('url-input').value = '';
+            }
+        }
+
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    </script>
+</body>
+</html>

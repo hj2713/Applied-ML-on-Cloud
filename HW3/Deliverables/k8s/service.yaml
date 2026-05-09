@@ -1,0 +1,14 @@
+# Service: Exposes the inference Deployment to the internet via a LoadBalancer.
+# This gives us a public IP so users can interact with the dashboard.
+apiVersion: v1
+kind: Service
+metadata:
+  name: mnist-inference-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: mnist-inference
+  ports:
+    - protocol: TCP
+      port: 80           # External port (what users hit)
+      targetPort: 5000    # Internal port (where Flask is listening)

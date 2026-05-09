@@ -1,0 +1,37 @@
+# Training Job: Runs to completion and then stops.
+# Controller choice: Job — because training is a finite, one-time task.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mnist-training-job
+spec:
+  backoffLimit: 2
+  template:
+    spec:
+      containers:
+        - name: trainer
+          image: hj2713/hw3-train:v3
+          imagePullPolicy: Always
+          env:
+            - name: EPOCHS
+              value: "10"
+            - name: BATCH_SIZE
+              value: "64"
+            - name: MODEL_DIR
+              value: "/mnt/model"
+          volumeMounts:
+            - name: model-volume
+              mountPath: /mnt/model
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "500m"
+            limits:
+              memory: "2Gi"
+              cpu: "2"
+              nvidia.com/gpu: 1
+      restartPolicy: Never
+      volumes:
+        - name: model-volume
+          persistentVolumeClaim:
+            claimName: model-pvc

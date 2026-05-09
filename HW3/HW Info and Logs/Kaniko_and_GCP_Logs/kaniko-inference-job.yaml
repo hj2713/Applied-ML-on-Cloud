@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kaniko-inference-build
+spec:
+  template:
+    spec:
+      initContainers:
+      - name: prepare-context
+        image: busybox
+        command:
+        - sh
+        - -c
+        - |
+          cp /workspace-src/Dockerfile /workspace/
+          cp /workspace-src/app.py /workspace/
+          cp /workspace-src/requirements.txt /workspace/
+          mkdir -p /workspace/templates
+          cp /workspace-src/index.html /workspace/templates/
+        volumeMounts:
+        - name: build-context-src
+          mountPath: /workspace-src
+        - name: build-context-real
+          mountPath: /workspace
+      containers:
+      - name: kaniko
+        image: gcr.io/kaniko-project/executor:latest
+        args:
+        - "--dockerfile=/workspace/Dockerfile"
+        - "--context=dir:///workspace"
+        - "--destination=hj2713/hw3-inference:v2"
+        volumeMounts:
+        - name: build-context-real
+          mountPath: /workspace
+        - name: docker-config
+          mountPath: /kaniko/.docker/
+      restartPolicy: Never
+      volumes:
+      - name: build-context-src
+        configMap:
+          name: inference-build-context
+      - name: build-context-real
+        emptyDir: {}
+      - name: docker-config
+        secret:
+          secretName: docker-config

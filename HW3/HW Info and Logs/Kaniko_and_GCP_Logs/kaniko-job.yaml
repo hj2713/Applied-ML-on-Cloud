@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kaniko-build
+spec:
+  template:
+    spec:
+      initContainers:
+      - name: prepare-context
+        image: busybox
+        command: ["sh", "-c", "cp /workspace-src/* /workspace/"]
+        volumeMounts:
+        - name: build-context-src
+          mountPath: /workspace-src
+        - name: build-context-real
+          mountPath: /workspace
+      containers:
+      - name: kaniko
+        image: gcr.io/kaniko-project/executor:latest
+        args:
+        - "--dockerfile=/workspace/Dockerfile"
+        - "--context=dir:///workspace"
+        - "--destination=hj2713/hw3-train:v3"
+        volumeMounts:
+        - name: build-context-real
+          mountPath: /workspace
+        - name: docker-config
+          mountPath: /kaniko/.docker/
+      restartPolicy: Never
+      volumes:
+      - name: build-context-src
+        configMap:
+          name: build-context
+      - name: build-context-real
+        emptyDir: {}
+      - name: docker-config
+        secret:
+          secretName: docker-config

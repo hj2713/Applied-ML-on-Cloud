@@ -1,0 +1,64 @@
+# Inference Deployment: Runs continuously to serve predictions.
+# Controller choice: Deployment — because the inference server must be always-on.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mnist-inference
+  labels:
+    app: mnist-inference
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mnist-inference
+  template:
+    metadata:
+      labels:
+        app: mnist-inference
+    spec:
+      containers:
+        - name: inference
+          image: hj2713/hw3-inference:v2
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MODEL_DIR
+              value: "/mnt/model"
+            - name: PORT
+              value: "5000"
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: inference-secret
+                  key: API_KEY
+          volumeMounts:
+            - name: model-volume
+              mountPath: /mnt/model
+              readOnly: true
+          # Kubernetes health probes using our /health endpoint
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
+      nodeSelector:
+        cloud.google.com/gke-nodepool: cpu-pool
+      volumes:
+        - name: model-volume
+          persistentVolumeClaim:
+            claimName: model-pvc

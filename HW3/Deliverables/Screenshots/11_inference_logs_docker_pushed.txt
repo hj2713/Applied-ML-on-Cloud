@@ -1,0 +1,155 @@
+himanshujhawar@Himanshus-MacBook-Air HW3 % 
+himanshujhawar@Himanshus-MacBook-Air HW3 % 
+himanshujhawar@Himanshus-MacBook-Air HW3 % 
+himanshujhawar@Himanshus-MacBook-Air HW3 % kubectl logs job/kaniko-inference-build
+Defaulted container "kaniko" out of: kaniko, prepare-context (init)
+INFO[0000] Retrieving image manifest python:3.10-slim   
+INFO[0000] Retrieving image python:3.10-slim from registry index.docker.io 
+INFO[0000] Built cross stage deps: map[]                
+INFO[0000] Retrieving image manifest python:3.10-slim   
+INFO[0000] Returning cached image manifest              
+INFO[0000] Executing 0 build triggers                   
+INFO[0000] Building stage 'python:3.10-slim' [idx: '0', base-idx: '-1'] 
+INFO[0000] Unpacking rootfs as cmd COPY requirements.txt . requires it. 
+INFO[0003] WORKDIR /app                                 
+INFO[0003] Cmd: workdir                                 
+INFO[0003] Changed working directory to /app            
+INFO[0003] Creating directory /app with uid -1 and gid -1 
+INFO[0003] Taking snapshot of files...                  
+INFO[0003] COPY requirements.txt .                      
+INFO[0003] Taking snapshot of files...                  
+INFO[0003] RUN pip install --no-cache-dir -r requirements.txt 
+INFO[0003] Initializing snapshotter ...                 
+INFO[0003] Taking snapshot of full filesystem...        
+INFO[0004] Cmd: /bin/sh                                 
+INFO[0004] Args: [-c pip install --no-cache-dir -r requirements.txt] 
+INFO[0004] Running: [/bin/sh -c pip install --no-cache-dir -r requirements.txt] 
+Collecting torch
+  Downloading torch-2.11.0-cp310-cp310-manylinux_2_28_x86_64.whl (530.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 530.6/530.6 MB 131.2 MB/s eta 0:00:00
+Collecting torchvision
+  Downloading torchvision-0.26.0-cp310-cp310-manylinux_2_28_x86_64.whl (7.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.5/7.5 MB 152.2 MB/s eta 0:00:00
+Collecting Flask
+  Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 103.4/103.4 kB 103.5 MB/s eta 0:00:00
+Collecting Pillow
+  Downloading pillow-12.2.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.1/7.1 MB 194.0 MB/s eta 0:00:00
+Collecting python-dotenv
+  Downloading python_dotenv-1.2.2-py3-none-any.whl (22 kB)
+Collecting jinja2
+  Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.9/134.9 kB 105.4 MB/s eta 0:00:00
+Collecting nvidia-cusparselt-cu13==0.8.0
+  Downloading nvidia_cusparselt_cu13-0.8.0-py3-none-manylinux2014_x86_64.whl (169.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 169.9/169.9 MB 157.0 MB/s eta 0:00:00
+Collecting nvidia-nvshmem-cu13==3.4.5
+  Downloading nvidia_nvshmem_cu13-3.4.5-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (60.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.4/60.4 MB 257.1 MB/s eta 0:00:00
+Collecting typing-extensions>=4.10.0
+  Downloading typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.6/44.6 kB 201.9 MB/s eta 0:00:00
+Collecting networkx>=2.5.1
+  Downloading networkx-3.4.2-py3-none-any.whl (1.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 254.2 MB/s eta 0:00:00
+Collecting sympy>=1.13.3
+  Downloading sympy-1.14.0-py3-none-any.whl (6.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 194.3 MB/s eta 0:00:00
+Collecting cuda-bindings<14,>=13.0.3
+  Downloading cuda_bindings-13.2.0-cp310-cp310-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (6.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 228.8 MB/s eta 0:00:00
+Collecting filelock
+  Downloading filelock-3.29.0-py3-none-any.whl (39 kB)
+Collecting nvidia-nccl-cu13==2.28.9
+  Downloading nvidia_nccl_cu13-2.28.9-py3-none-manylinux_2_18_x86_64.whl (196.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 196.5/196.5 MB 267.4 MB/s eta 0:00:00
+Collecting triton==3.6.0
+  Downloading triton-3.6.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (188.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.1/188.1 MB 253.8 MB/s eta 0:00:00
+Requirement already satisfied: setuptools<82 in /usr/local/lib/python3.10/site-packages (from torch->-r requirements.txt (line 1)) (79.0.1)
+Collecting nvidia-cudnn-cu13==9.19.0.56
+  Downloading nvidia_cudnn_cu13-9.19.0.56-py3-none-manylinux_2_27_x86_64.whl (366.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 366.1/366.1 MB 230.4 MB/s eta 0:00:00
+Collecting fsspec>=0.8.5
+  Downloading fsspec-2026.4.0-py3-none-any.whl (203 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 203.4/203.4 kB 203.0 MB/s eta 0:00:00
+Collecting cuda-toolkit[cublas,cudart,cufft,cufile,cupti,curand,cusolver,cusparse,nvjitlink,nvrtc,nvtx]==13.0.2
+  Downloading cuda_toolkit-13.0.2-py2.py3-none-any.whl (2.4 kB)
+Collecting nvidia-cufile==1.15.1.6.*
+  Downloading nvidia_cufile-1.15.1.6-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 310.1 MB/s eta 0:00:00
+Collecting nvidia-nvjitlink==13.0.88.*
+  Downloading nvidia_nvjitlink-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (40.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.7/40.7 MB 263.9 MB/s eta 0:00:00
+Collecting nvidia-nvtx==13.0.85.*
+  Downloading nvidia_nvtx-13.0.85-py3-none-manylinux1_x86_64.manylinux_2_5_x86_64.whl (148 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 148.0/148.0 kB 249.4 MB/s eta 0:00:00
+Collecting nvidia-cublas==13.1.0.3.*
+  Downloading nvidia_cublas-13.1.0.3-py3-none-manylinux_2_27_x86_64.whl (423.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 423.1/423.1 MB 256.8 MB/s eta 0:00:00
+Collecting nvidia-curand==10.4.0.35.*
+  Downloading nvidia_curand-10.4.0.35-py3-none-manylinux_2_27_x86_64.whl (59.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.5/59.5 MB 230.2 MB/s eta 0:00:00
+Collecting nvidia-cusparse==12.6.3.3.*
+  Downloading nvidia_cusparse-12.6.3.3-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (145.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 145.9/145.9 MB 231.5 MB/s eta 0:00:00
+Collecting nvidia-cusolver==12.0.4.66.*
+  Downloading nvidia_cusolver-12.0.4.66-py3-none-manylinux_2_27_x86_64.whl (200.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 200.9/200.9 MB 258.3 MB/s eta 0:00:00
+Collecting nvidia-cuda-nvrtc==13.0.88.*
+  Downloading nvidia_cuda_nvrtc-13.0.88-py3-none-manylinux2010_x86_64.manylinux_2_12_x86_64.whl (90.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.2/90.2 MB 239.5 MB/s eta 0:00:00
+Collecting nvidia-cuda-runtime==13.0.96.*
+  Downloading nvidia_cuda_runtime-13.0.96-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 203.9 MB/s eta 0:00:00
+Collecting nvidia-cuda-cupti==13.0.85.*
+  Downloading nvidia_cuda_cupti-13.0.85-py3-none-manylinux_2_25_x86_64.whl (10.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.7/10.7 MB 217.1 MB/s eta 0:00:00
+Collecting nvidia-cufft==12.0.0.61.*
+  Downloading nvidia_cufft-12.0.0.61-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (214.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 214.1/214.1 MB 196.6 MB/s eta 0:00:00
+Collecting numpy
+  Downloading numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.8/16.8 MB 230.9 MB/s eta 0:00:00
+Collecting markupsafe>=2.1.1
+  Downloading markupsafe-3.0.3-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (20 kB)
+Collecting werkzeug>=3.1.0
+  Downloading werkzeug-3.1.8-py3-none-any.whl (226 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 226.5/226.5 kB 219.5 MB/s eta 0:00:00
+Collecting itsdangerous>=2.2.0
+  Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+Collecting click>=8.1.3
+  Downloading click-8.3.3-py3-none-any.whl (110 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 110.5/110.5 kB 208.0 MB/s eta 0:00:00
+Collecting blinker>=1.9.0
+  Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+Collecting cuda-pathfinder~=1.1
+  Downloading cuda_pathfinder-1.5.4-py3-none-any.whl (51 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 51.7/51.7 kB 47.0 MB/s eta 0:00:00
+Collecting mpmath<1.4,>=1.1.0
+  Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 281.7 MB/s eta 0:00:00
+Installing collected packages: nvidia-cusparselt-cu13, mpmath, cuda-toolkit, typing-extensions, triton, sympy, python-dotenv, Pillow, nvidia-nvtx, nvidia-nvshmem-cu13, nvidia-nvjitlink, nvidia-nccl-cu13, nvidia-curand, nvidia-cufile, nvidia-cuda-runtime, nvidia-cuda-nvrtc, nvidia-cuda-cupti, nvidia-cublas, numpy, networkx, markupsafe, itsdangerous, fsspec, filelock, cuda-pathfinder, click, blinker, werkzeug, nvidia-cusparse, nvidia-cufft, nvidia-cudnn-cu13, jinja2, cuda-bindings, nvidia-cusolver, Flask, torch, torchvision
+Successfully installed Flask-3.1.3 Pillow-12.2.0 blinker-1.9.0 click-8.3.3 cuda-bindings-13.2.0 cuda-pathfinder-1.5.4 cuda-toolkit-13.0.2 filelock-3.29.0 fsspec-2026.4.0 itsdangerous-2.2.0 jinja2-3.1.6 markupsafe-3.0.3 mpmath-1.3.0 networkx-3.4.2 numpy-2.2.6 nvidia-cublas-13.1.0.3 nvidia-cuda-cupti-13.0.85 nvidia-cuda-nvrtc-13.0.88 nvidia-cuda-runtime-13.0.96 nvidia-cudnn-cu13-9.19.0.56 nvidia-cufft-12.0.0.61 nvidia-cufile-1.15.1.6 nvidia-curand-10.4.0.35 nvidia-cusolver-12.0.4.66 nvidia-cusparse-12.6.3.3 nvidia-cusparselt-cu13-0.8.0 nvidia-nccl-cu13-2.28.9 nvidia-nvjitlink-13.0.88 nvidia-nvshmem-cu13-3.4.5 nvidia-nvtx-13.0.85 python-dotenv-1.2.2 sympy-1.14.0 torch-2.11.0 torchvision-0.26.0 triton-3.6.0 typing-extensions-4.15.0 werkzeug-3.1.8
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+[notice] A new release of pip is available: 23.0.1 -> 26.1.1
+[notice] To update, run: pip install --upgrade pip
+INFO[0115] Taking snapshot of full filesystem...        
+INFO[0314] COPY app.py .                                
+INFO[0314] Taking snapshot of files...                  
+INFO[0314] COPY templates/ templates/                   
+INFO[0314] Taking snapshot of files...                  
+INFO[0314] ENV MODEL_DIR=/mnt/model                     
+INFO[0314] ENV PORT=5000                                
+INFO[0314] ENV API_KEY=change-me-in-production          
+INFO[0314] EXPOSE 5000                                  
+INFO[0314] Cmd: EXPOSE                                  
+INFO[0314] Adding exposed port: 5000/tcp                
+INFO[0314] CMD ["python", "app.py"]                     
+INFO[0314] Pushing image to hj2713/hw3-inference:v2     
+INFO[0368] Pushed index.docker.io/hj2713/hw3-inference@sha256:9a452a8e5f921dbc38f64c300ed2906941a1788ac5740b41196f70d92dbc4917 
+himanshujhawar@Himanshus-MacBook-Air HW3 % 
+himanshujhawar@Himanshus-MacBook-Air HW3 % 
+himanshujhawar@Himanshus-MacBook-Air HW3 % 
