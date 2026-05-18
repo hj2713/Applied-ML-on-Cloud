@@ -4,7 +4,7 @@ This repository is dedicated to organizing and sharing all materials related to 
 
 ## 📌 About
 
-I will be posting everything related to the subject here, including:
+I've posted everything related to the subject here, including:
 
 * Notes
 * Assignments
@@ -15,10 +15,9 @@ This repo will serve as a central place to track my progress and keep all work s
 
 ## 👤 Author
 
-**Name:** Your Name
-**Course/Subject:** Your Subject Name
-**Institution:** Your College/University (optional)
-**Year:** Your Academic Year (optional)
+**Name:** Himanshu Jhawar
+**Course/Subject:** Applied ML on Cloud
+**Institution:** Columbia University
 
 ## 🚀 Purpose
 
